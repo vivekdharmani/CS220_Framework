@@ -1,14 +1,15 @@
 CS220 Project Framework
 ===============
 
+Group Members: 
+1) Vineet Kapoor - vineetkapoor
+2) Vivek Dharmani - vivekdharmani
+
 ## Project Overview
 
 You will use this framework for the following projects:
 
 - Grid Routing
-- Advanced Grid Routing
-- Soukup Global Grid Routing
-- Line Routing
 
 The project will involve reading in JSON test files (located in the test directory) and parsing these files into a Problem Object. This step has already been done for you and is written at the beginning of main.cc to allow for command line arguments, **You should not change this code** as it will be used for testing.
 
