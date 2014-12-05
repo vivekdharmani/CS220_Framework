@@ -1,6 +1,5 @@
 /*
  * lee.h
- *
  *  Created on: Nov 21, 2014
  */
 
@@ -8,8 +7,6 @@
 #include<string>
 #include "problem_object.h"
 #include "point.h"
-
-
 
 namespace Utilities{
     class Lees {
