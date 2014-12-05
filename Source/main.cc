@@ -17,7 +17,7 @@ int main(int argc,char* argv[]) {
 	// EDIT FROM HERE DOWN
 
 	//Create your problem map object (in our example, we use a simple grid, you should create your own)
-	Utilities::Grid g(first_problem->get_width(), first_problem->get_height());
+//	Utilities::Grid g(first_problem->get_width(), first_problem->get_height());
 
 	/*
 	Note: we do not take into account the connections or blockers that exist in the Project Object
@@ -35,7 +35,7 @@ int main(int argc,char* argv[]) {
 	*/
 
 	//Note, we create random paths just as an example of how to create paths, netlists are created similarly
-	vector<Path*> paths;
+/*	vector<Path*> paths;
 	srand(time(NULL));
 	int number_paths = first_problem->get_connections().size();
 	cout << "Creating " << number_paths << " paths...";
@@ -55,8 +55,50 @@ int main(int argc,char* argv[]) {
 		paths.push_back(new_path);
 	}
 	cout << "Completed." << endl;
+*/
 
+ int algo;
+    std::cout << "Select an Algorithm to use: " <<std::endl;
+    std::cout << "1. Lees Algorithm" <<std::endl;
+    std::cout << "2. Ruben's Algorithm" <<std::endl;
+    std::cin >> algo;
+    std::vector< std::vector<Point> > paths;
+    
+    switch(algo)
+    {
+        case 1:
+        {
+		std::cout <<"in";
+            Utilities::Lees leeobj(first_problem);		
+		std::cout <<"done";
+            leeobj.handle();
+            paths = leeobj.paths;
+        }
+        break;
+        case 2:
+        {
+            Utilities::Ruben ruben(first_problem);
+            ruben.runRuben();
+            paths = ruben.paths;
+        }
+        break;
+        default:
+            std::cout <<"Select valid option..";
+            break;
+    }
 	//Print the paths/netlists that you have return from your algorithm
+	int r=0; r < paths.size() ; r++)
+    {
+        std::cout << "Net " << r+1 <<": ";
+        for(int s=0; s<paths[r].size(); s++)
+        {
+           std::cout<< "( " <<paths[r][s].x << " , " <<paths[r][s].y <<" )";
+        }
+        std::cout<<std::endl;
+    }
+    
+	
+/*	
 	for (unsigned i = 0;i < paths.size();i++) {
 		cout << "\tPath " << i+1 << " of " << paths.size() << ": (" 
 			 << paths.at(i)->at(0)->get_source().x << "," << paths.at(i)->at(0)->get_source().y << ") ";
@@ -68,7 +110,7 @@ int main(int argc,char* argv[]) {
 		delete temp;
 	}
 	paths.clear();
-
+*/
 	delete first_problem;
 
 	return 0;
