@@ -57,9 +57,7 @@ for(int run = 0; run<source.size(); run++)
     sy = source[run].y;
     dx = dest[run].x;
     dy = dest[run].y;
-    if(sx==dx && sy==dy)
-        bfdone=true;
-    
+   
     std::cout << "Net " <<run+1 <<" -\nSource: " <<sx <<" " <<sy <<std::endl;
     std::cout <<"Sink: " <<dx <<" " <<dy <<std::endl;
     for(int i=0; i<height; i++){
@@ -104,7 +102,18 @@ for(int run = 0; run<source.size(); run++)
         grid[dx][dy] = -2;
         grid[sx][sy] = 0;
         cost[sx][sy] = (abs(dx-sx) + abs(dy-sy));
-        
+        if(sx==dx && sy==dy)
+	{
+            bfdone=true;
+    	}
+    
+    	if(sx<0||sx>height-1||dx<0||dx>height-1||sy<0||sy>width-1||dy<0||dy>width-1)
+	{
+		std::cout <<"Source/Sink value out of grid\n";
+		bfdone = true;
+		grid[dx][dy] = 0;
+
+	}
         
     //Declaring and Initializing Wavefront to source    
         
