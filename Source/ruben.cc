@@ -1,5 +1,5 @@
 /*
- * LeesAlgo.cpp
+ * ruben.cc
  *
  *  Created on: Nov 21, 2014
  */
@@ -12,6 +12,7 @@
 #include "../Headers/problem_object.h"
 #include "../Headers/ruben.h"
 #include "../Headers/point.h"
+
 
 
 using namespace Utilities;
@@ -39,10 +40,11 @@ void Utilities::Ruben::runRuben()
     bool enhan2=false;
     bool bfdone = false;
     int grid[height][width];
-    int cost[height][width];
+    int rubenCost[height][width];
     std::vector<int> discovered_x[2];
     std::vector<int> discovered_y[2];
-      
+    
+    
    std::cout <<"Running Ruben's Algorithm\n";
    std::cout <<"Expand cells most recently added to wavefront?(y/n)\n";
    char in;
@@ -57,13 +59,13 @@ for(int run = 0; run<source.size(); run++)
     sy = source[run].y;
     dx = dest[run].x;
     dy = dest[run].y;
-   
+    
     std::cout << "Net " <<run+1 <<" -\nSource: " <<sx <<" " <<sy <<std::endl;
     std::cout <<"Sink: " <<dx <<" " <<dy <<std::endl;
     for(int i=0; i<height; i++){
 		for(int j=0; j<width; j++)
 		{
-			cost[i][j] = -1;
+			rubenCost[i][j] = -1;
 		}
 	}
 	for(int i=0; i<height; i++){
@@ -101,7 +103,7 @@ for(int run = 0; run<source.size(); run++)
      
         grid[dx][dy] = -2;
         grid[sx][sy] = 0;
-        cost[sx][sy] = (abs(dx-sx) + abs(dy-sy));
+        rubenCost[sx][sy] = (abs(dx-sx) + abs(dy-sy));
         if(sx==dx && sy==dy)
 	{
             bfdone=true;
@@ -145,11 +147,11 @@ for(int run = 0; run<source.size(); run++)
                 }
                 if((curx != height-1) && !bfdone)
                     {
-                            if((grid[curx +1][cury]==-2)|| (grid[curx+1][cury] > grid[curx][cury] + 1))
+                            if(grid[curx +1][cury]==-2)
                             {
                                 grid[curx +1][cury] = grid[curx][cury] +1;
-                                cost[curx +1][cury] = grid[curx +1][cury] + (abs(dx-(curx+1)) + abs(dy-cury));
-                                if(cost[curx +1][cury]>cost[curx][cury]){
+                                rubenCost[curx +1][cury] = grid[curx +1][cury] + (abs(dx-(curx+1)) + abs(dy-cury));
+                                if(rubenCost[curx +1][cury]>rubenCost[curx][cury]){
                                     discovered_x[(bfturn+1)%2].push_back(curx +1);
                                     discovered_y[(bfturn+1)%2].push_back(cury);
                                 }
@@ -161,16 +163,16 @@ for(int run = 0; run<source.size(); run++)
 
                             if(curx+1==dx && cury==dy)
                                     bfdone=true;
-                    }
+                   }
 
 
                 if((cury != width - 1)&&!bfdone)
                     {
-                            if((grid[curx][cury+1]==-2)|| (grid[curx][cury+1] > grid[curx][cury] +1))
+                            if(grid[curx][cury+1]==-2)
                             {
                                     grid[curx][cury+1] = grid[curx][cury] + 1;
-                                    cost[curx][cury+1] = grid[curx][cury+1] + (abs(dx-curx) + abs(dy-(cury+1)));
-                                    if(cost[curx][cury+1]>cost[curx][cury])
+                                    rubenCost[curx][cury+1] = grid[curx][cury+1] + (abs(dx-curx) + abs(dy-(cury+1)));
+                                    if(rubenCost[curx][cury+1]>rubenCost[curx][cury])
                                     {
                                         discovered_x[(bfturn+1)%2].push_back(curx);
                                         discovered_y[(bfturn+1)%2].push_back(cury+1);    
@@ -189,11 +191,11 @@ for(int run = 0; run<source.size(); run++)
 
                 if((curx != 0)&&!bfdone)
                     {
-                            if((grid[curx -1][cury]==-2)|| (grid[curx-1][cury] > grid[curx][cury] +1))
+                            if(grid[curx -1][cury]==-2)
                             {
                                     grid[curx -1][cury] = grid[curx][cury] +1;
-                                    cost[curx-1][cury] = grid[curx -1][cury] + (abs(dx-(curx-1)) + abs(dy-cury));
-                                    if(cost[curx-1][cury]> cost[curx][cury])
+                                    rubenCost[curx-1][cury] = grid[curx -1][cury] + (abs(dx-(curx-1)) + abs(dy-cury));
+                                    if(rubenCost[curx-1][cury]> rubenCost[curx][cury])
                                     {
                                         discovered_x[(bfturn+1)%2].push_back(curx -1);
                                         discovered_y[(bfturn+1)%2].push_back(cury);
@@ -211,11 +213,11 @@ for(int run = 0; run<source.size(); run++)
 
                 if((cury != 0)&&!bfdone)
                     {
-                            if((grid[curx][cury-1]==-2)|| (grid[curx][cury-1] > grid[curx][cury] +1))
+                            if(grid[curx][cury-1]==-2)
                             {
                                     grid[curx][cury-1] = grid[curx][cury] +1;
-                                    cost[curx][cury-1] = grid[curx][cury-1] + (abs(dx-curx) + abs(dy-(cury-1)));
-                                    if(cost[curx][cury-1] > cost[curx][cury])
+                                    rubenCost[curx][cury-1] = grid[curx][cury-1] + (abs(dx-curx) + abs(dy-(cury-1)));
+                                    if(rubenCost[curx][cury-1] > rubenCost[curx][cury])
                                     {
                                         discovered_x[(bfturn+1)%2].push_back(curx);
                                         discovered_y[(bfturn+1)%2].push_back(cury-1);
@@ -236,30 +238,30 @@ for(int run = 0; run<source.size(); run++)
         }
 
 //Backtracking for results        
-        int backtrack_x = dx;
+    int backtrack_x = dx;
     int backtrack_y = dy;
     std::vector<Point> route;
         
     Point poin; poin.x = dx; poin.y = dy;
     route.push_back(poin);
-    while(grid[backtrack_x][backtrack_y]!=0)
+    while(!(backtrack_x==sx && backtrack_y==sy))
     {
-        if(grid[backtrack_x-1][backtrack_y] == grid[backtrack_x][backtrack_y] - 1)
-			{
-				backtrack_x -= 1;
-			}
+        if((backtrack_x != 0 )&&(grid[backtrack_x-1][backtrack_y] == grid[backtrack_x][backtrack_y] - 1))
+	{
+		backtrack_x -= 1;
+	}
 			
-        else if(grid[backtrack_x][backtrack_y-1] == grid[backtrack_x][backtrack_y] - 1)
+        else if((backtrack_y != 0)&&(grid[backtrack_x][backtrack_y-1] == grid[backtrack_x][backtrack_y] - 1))
         {
                 backtrack_y -= 1;
         }
 
-        else if(grid[backtrack_x+1][backtrack_y] == grid[backtrack_x][backtrack_y] - 1)
+        else if((backtrack_x != height-1)&&(grid[backtrack_x+1][backtrack_y] == grid[backtrack_x][backtrack_y] - 1))
         {
                 backtrack_x +=1;
         }
 
-        else if(grid[backtrack_x][backtrack_y+1] == grid[backtrack_x][backtrack_y] - 1)
+        else if((backtrack_y != width - 1)&&(grid[backtrack_x][backtrack_y+1] == grid[backtrack_x][backtrack_y] - 1))
         {
                 backtrack_y += 1;
         }
@@ -275,9 +277,25 @@ for(int run = 0; run<source.size(); run++)
         
         
     }
-    
-    
- 
+    /*
+    for(int i=0; i<height; i++)
+    {
+		for(int j=0; j<width; j++)
+		{
+                    	std::cout <<grid[i][j] <<  "\t";
+		}
+                std::cout <<std::endl;
+	}
+    std::cout<<std::endl<<std::endl;
+    for(int i=0; i<height; i++)
+    {
+		for(int j=0; j<width; j++)
+		{
+                    	std::cout <<rubenCost[i][j] <<  "\t";
+		}
+                std::cout <<std::endl;
+    }
+    */
     paths.push_back(route);
     bfdone = false;
     discovered_x[0].clear();
@@ -285,8 +303,6 @@ for(int run = 0; run<source.size(); run++)
     discovered_x[1].clear();
     discovered_y[1].clear();
     route.clear();
-    
-    
 }
  
    /* 
