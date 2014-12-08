@@ -1,6 +1,11 @@
 
 #include "../Headers/grid.h"
 #include "../Headers/problem_object.h"
+#include "../Headers/lee.h"
+#include "../Headers/point.h"
+#include "../Headers/ruben.h"
+#include "../Headers/korn.h"
+#include "../Headers/hadlock.h"
 #include <time.h>
 #include <cstdlib>
 #include <iostream>
@@ -57,39 +62,61 @@ int main(int argc,char* argv[]) {
 	cout << "Completed." << endl;
 */
 
- int algo;
+    int algo;
     std::cout << "Select an Algorithm to use: " <<std::endl;
-    std::cout << "1. Lees Algorithm" <<std::endl;
-    std::cout << "2. Ruben's Algorithm" <<std::endl;
+    std::cout << "1. Lees Algorithm (Basic)" <<std::endl;
+    std::cout << "2. Lees Algorithm (3-bit)" <<std::endl;
+    std::cout << "3. Lees Algorithm (2-bit)" <<std::endl;
+    std::cout << "4. Ruben's Algorithm" <<std::endl;
+    std::cout << "5. Korn's Algorithm" <<std::endl;
+    std::cout << "6. Hadlock's Algorithm" <<std::endl;
     std::cin >> algo;
     std::vector< std::vector<Point> > paths;
     
     switch(algo)
     {
         case 1:
+	case 2:
+	case 3:
         {
-		std::cout <<"in";
-            Utilities::Lees leeobj(first_problem);		
-		std::cout <<"done";
-            leeobj.handle();
+            Utilities::Lees leeobj(first_problem);	
+            leeobj.runALgo(algo);
             paths = leeobj.paths;
         }
         break;
-        case 2:
+        case 4:
         {
             Utilities::Ruben ruben(first_problem);
             ruben.runRuben();
             paths = ruben.paths;
         }
         break;
+ 	case 5:
+        {
+           Korn* korn = new Korn(first_problem);
+           double overpull;
+           std::cout<<"Please insert the value of overpull:";
+           std::cin>>overpull;
+            korn->runKorn(overpull);
+            paths = korn->paths;
+        }
+        break;
+	case 6:
+        {
+            Hadlock* hadlock = new Hadlock(first_problem);
+            hadlock->runHadlock();
+            paths = hadlock->paths;
+        }
+        break;
         default:
-            std::cout <<"Select valid option..";
+            std::cout <<"Select valid option.";
             break;
     }
+    
 	//Print the paths/netlists that you have return from your algorithm
-	int r=0; r < paths.size() ; r++)
+for(int r=0; r < paths.size() ; r++)
     {
-        std::cout << "Net " << r+1 <<": ";
+        std::cout << "\nNet " << r+1 <<": ";
         for(int s=0; s<paths[r].size(); s++)
         {
            std::cout<< "( " <<paths[r][s].x << " , " <<paths[r][s].y <<" )";
