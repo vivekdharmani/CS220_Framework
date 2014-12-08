@@ -1,8 +1,3 @@
-/*
- * LeesAlgo.cpp
- *
- *  Created on: Nov 21, 2014
- */
 #include<iostream>
 #include<string>
 #include <vector>
@@ -26,17 +21,11 @@ Utilities::Lees::Lees(ProblemObject* abcd){
 };
 
 
-void Utilities::Lees::handle(){
-     int opt;
-    std::cout << "Select an Option: " <<std::endl;
-    std::cout << "1. Basic Lees Algorithm" <<std::endl;
-    std::cout << "2. Lees Algorithm (3-bit)" <<std::endl;
-    std::cout << "3. Lees Algorithm (2-bit)" <<std::endl;
-    std::cin >> opt;
-    std::vector< std::vector<Point> > paths;
+void Utilities::Lees::runALgo(int choice){
    
-    
-    switch(opt)
+ std::vector< std::vector<Point> > paths;
+   
+    switch(choice)
     {
         case 1:
             LeesBasic();
@@ -48,7 +37,7 @@ void Utilities::Lees::handle(){
             Lees2Bit();
             break;
         default:
-            std::cout <<"Select valid option..";
+            std::cout <<"Select valid option...";
             break;
     }
 }
@@ -205,24 +194,24 @@ for(int run = 0; run<source.size(); run++)
     route.push_back(poin);
     while(grid[backtrack_x][backtrack_y]!=0)
     {
-        if(grid[backtrack_x-1][backtrack_y] == grid[backtrack_x][backtrack_y] - 1)
-			{
-				backtrack_x -= 1;
-			}
+	if((backtrack_x != 0) && (grid[backtrack_x-1][backtrack_y] == grid[backtrack_x][backtrack_y] - 1))
+	{
+		backtrack_x -= 1;
+	}
 			
-        else if(grid[backtrack_x][backtrack_y-1] == grid[backtrack_x][backtrack_y] - 1)
+        else if((backtrack_y != 0) && (grid[backtrack_x][backtrack_y-1] == grid[backtrack_x][backtrack_y] - 1))
         {
-                backtrack_y -= 1;
+		 backtrack_y -= 1;
         }
 
-        else if(grid[backtrack_x+1][backtrack_y] == grid[backtrack_x][backtrack_y] - 1)
+        else if((backtrack_x != height-1) && (grid[backtrack_x+1][backtrack_y] == grid[backtrack_x][backtrack_y] - 1))
         {
-                backtrack_x +=1;
+		backtrack_x +=1;
         }
 
-        else if(grid[backtrack_x][backtrack_y+1] == grid[backtrack_x][backtrack_y] - 1)
+        else if((backtrack_y != width - 1) && (grid[backtrack_x][backtrack_y+1] == grid[backtrack_x][backtrack_y] - 1))
         {
-                backtrack_y += 1;
+		backtrack_y += 1;
         }
 
         else
@@ -469,22 +458,23 @@ void Utilities::Lees::Lees3bit(){
         route.push_back(poin);
         while(grid[backtrack_x][backtrack_y]!=0)
         {
-            if((grid[backtrack_x-1][backtrack_y] == grid[backtrack_x][backtrack_y] - 1)||(grid[backtrack_x-1][backtrack_y]==3 && grid[backtrack_x][backtrack_y]==1))
+	   
+            if(((grid[backtrack_x-1][backtrack_y] == grid[backtrack_x][backtrack_y] - 1)||(grid[backtrack_x-1][backtrack_y]==3 && grid[backtrack_x][backtrack_y]==1))&&(backtrack_x != 0))
                             {
                                     backtrack_x -= 1;
                             }
 
-            else if((grid[backtrack_x][backtrack_y-1] == grid[backtrack_x][backtrack_y] - 1)||(grid[backtrack_x][backtrack_y-1]==3 && grid[backtrack_x][backtrack_y] ==1))
+            else if(((grid[backtrack_x][backtrack_y-1] == grid[backtrack_x][backtrack_y] - 1)||(grid[backtrack_x][backtrack_y-1]==3 && grid[backtrack_x][backtrack_y] ==1))&&(backtrack_y != 0))
             {
                     backtrack_y -= 1;
             }
 
-            else if((grid[backtrack_x+1][backtrack_y] == grid[backtrack_x][backtrack_y] - 1)||(grid[backtrack_x+1][backtrack_y]==3 && grid[backtrack_x][backtrack_y] ==1))
+            else if(((grid[backtrack_x+1][backtrack_y] == grid[backtrack_x][backtrack_y] - 1)||(grid[backtrack_x+1][backtrack_y]==3 && grid[backtrack_x][backtrack_y] ==1))&&(backtrack_x != height-1))
             {
                     backtrack_x +=1;
             }
 
-            else if((grid[backtrack_x][backtrack_y+1] == grid[backtrack_x][backtrack_y] - 1) ||(grid[backtrack_x][backtrack_y+1] ==3 && grid[backtrack_x][backtrack_y] ==1))
+            else if(((grid[backtrack_x][backtrack_y+1] == grid[backtrack_x][backtrack_y] - 1) ||(grid[backtrack_x][backtrack_y+1] ==3 && grid[backtrack_x][backtrack_y] ==1))&&(backtrack_y != width - 1))
             {
                     backtrack_y += 1;
             }
@@ -698,22 +688,22 @@ for(int run = 0; run<source.size(); run++)
             wavevalue = 1;    
     
         
-        if((grid[backtrack_x-1][backtrack_y] == wavevalue)||(grid[backtrack_x-1][backtrack_y] == 0))
+        if(((grid[backtrack_x-1][backtrack_y] == wavevalue)||(grid[backtrack_x-1][backtrack_y] == 0))&&(backtrack_x != 0))
 			{
 				backtrack_x -= 1;
 			}
 			
-        else if((grid[backtrack_x][backtrack_y-1] == wavevalue)||(grid[backtrack_x][backtrack_y-1] == 0))
+        else if(((grid[backtrack_x][backtrack_y-1] == wavevalue)||(grid[backtrack_x][backtrack_y-1] == 0))&&(backtrack_y != 0))
         {
                 backtrack_y -= 1;
         }
 
-        else if((grid[backtrack_x+1][backtrack_y] == wavevalue)||(grid[backtrack_x+1][backtrack_y] == 0))
+        else if(((grid[backtrack_x+1][backtrack_y] == wavevalue)||(grid[backtrack_x+1][backtrack_y] == 0))&&(backtrack_x != height-1))
         {
                 backtrack_x +=1;
         }
 
-        else if((grid[backtrack_x][backtrack_y+1] == wavevalue)||(grid[backtrack_x][backtrack_y+1] == 0))
+        else if(((grid[backtrack_x][backtrack_y+1] == wavevalue)||(grid[backtrack_x][backtrack_y+1] == 0))&&(backtrack_y != width - 1))
         {
                 backtrack_y += 1;
         }
