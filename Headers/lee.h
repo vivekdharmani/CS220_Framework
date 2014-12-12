@@ -8,28 +8,33 @@
 #include<string>
 #include "problem_object.h"
 #include "point.h"
+#include "path.h"
+
 
 
 
 namespace Utilities{
     class Lees {
         private:
-    	int width,height;
-    	std::vector<Point> source, dest;
-        std::vector<Blocker> blocks;
+    	int width,height;		        	/*Width and height of problem object*/
+    	std::vector<Point> source, dest;	/*Vector to store source and sink values*/
+        std::vector<Blocker> blocks;		/*List of all the blockages in problem object*/
+        std::vector<Path*> finalpath;		/*Final paths of all nets to be routed*/
+        void LeesBasic();		        	/*Basic Lees Algorithm*/
+        void Lees3bit();			        /*Lees Algorithm (3-bit)*/
+       	void Lees2Bit();			        /*Lees Algorithm (2-bit)*/
+        
         
         public:
-        std::vector< std::vector<Point> > paths;
+        //Constructor-Desctructor
         Lees(ProblemObject* first_problem);  
-   
     	~Lees(){
             
         };
 
-        void runALgo(int choice);
-   	void LeesBasic();
-        void Lees3bit();
-       	void Lees2Bit();
+	    //Function to call Lees from main.cc
+        std::vector<Path*> runALgo(int choice);
+   	
 
     };
 
