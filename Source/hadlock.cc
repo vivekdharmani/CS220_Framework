@@ -461,7 +461,7 @@ std::vector<Path*> Utilities::Hadlock::runHadlock()
     discovered_x[1].clear();
     discovered_y[1].clear();
     bfdone = false;
-   
+    inputerr = false;
     finalpath.push_back(netpath);				/*Save the route in path vector, which will be returned to main*/
     
   }
