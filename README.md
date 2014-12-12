@@ -5,6 +5,16 @@ Group Members:
 1) Vineet Kapoor - vineetkapoor
 2) Vivek Dharmani - vivekdharmani
 
+## Algorithms Implemented
+- Lees Algorithm
+- Lees Algorihm (3-bit)
+- Lees Algorithm (2-bit)
+- Ruben's Cost Function (and 2 enhancements)
+- Korn's Cost Function (and 2 enhancements and user-given overpull)
+- Hadlock's Algorithm (with enhancement to expand latest node discovered)
+
+
+
 ## Project Overview
 
 You will use this framework for the following projects:
