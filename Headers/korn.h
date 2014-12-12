@@ -7,6 +7,8 @@
 #include<iostream>
 #include<string>
 #include "problem_object.h"
+#include "point.h"
+#include "path.h"
 
 
 
@@ -16,19 +18,21 @@ using namespace Utilities;
 namespace Utilities{
     class Korn {
         private:
-    	int width,height;
-    	std::vector<Point> source, dest;
-        std::vector<Blocker> blocks;
+    	int width,height;			/*Width and height of problem object*/
+    	std::vector<Path*> finalpath;		/*Final paths of all nets to be routed*/
+        std::vector<Point> source, dest;	/*Vector to store source and sink values*/
+        std::vector<Blocker> blocks;		/*List of all the blockages in problem object*/
         
         public:
-        std::vector< std::vector<Point> > paths;
+        //Constructor-Desctructor
         Korn(ProblemObject* first_problem);  
    
     	~Korn(){
             
         };
 
-       	void runKorn(double overpull);
+	//Korns Algorithm
+       	std::vector<Path*> runKorn(double overpull);
 
     };
 
