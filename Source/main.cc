@@ -62,7 +62,8 @@ int main(int argc,char* argv[]) {
 	cout << "Completed." << endl;
 */
 
-    int algo;
+
+int algo;
     std::cout << "Select an Algorithm to use: " <<std::endl;
     std::cout << "1. Lees Algorithm (Basic)" <<std::endl;
     std::cout << "2. Lees Algorithm (3-bit)" <<std::endl;
@@ -70,64 +71,56 @@ int main(int argc,char* argv[]) {
     std::cout << "4. Ruben's Algorithm" <<std::endl;
     std::cout << "5. Korn's Algorithm" <<std::endl;
     std::cout << "6. Hadlock's Algorithm" <<std::endl;
-    std::cin >> algo;
-    std::vector< std::vector<Point> > paths;
-    
+
+//Take input from user for algo to use
+    std::cin >> algo;			/*In value indicating which algorithm to run*/
+    vector<Path*> paths;		/*Path vector to save the paths returning from algorithm calls*/
+       
     switch(algo)
     {
+	//Values 1,2,3 indicate 3 variants of Lees Algorithm
         case 1:
 	case 2:
 	case 3:
         {
             Utilities::Lees leeobj(first_problem);	
-            leeobj.runALgo(algo);
-            paths = leeobj.paths;
+            paths = leeobj.runALgo(algo);
         }
         break;
+	//Value 4 will create object for Rubens Algorithm
         case 4:
         {
             Utilities::Ruben ruben(first_problem);
-            ruben.runRuben();
-            paths = ruben.paths;
+            paths =  ruben.runRuben();
         }
         break;
+	//Value 5 will create object for Korn Algorithm
  	case 5:
         {
            Korn* korn = new Korn(first_problem);
            double overpull;
            std::cout<<"Please insert the value of overpull:";
            std::cin>>overpull;
-            korn->runKorn(overpull);
-            paths = korn->paths;
+           paths =  korn->runKorn(overpull);
         }
         break;
+	//Value 6 will create object for Hadlock Algorithm
 	case 6:
         {
-            Hadlock* hadlock = new Hadlock(first_problem);
-            hadlock->runHadlock();
-            paths = hadlock->paths;
+            Utilities::Hadlock hadlock(first_problem);
+            paths =  hadlock.runHadlock();
+            //paths = hadlock->paths;
         }
         break;
         default:
             std::cout <<"Select valid option.";
             break;
     }
-    
-	//Print the paths/netlists that you have return from your algorithm
-for(int r=0; r < paths.size() ; r++)
-    {
-        std::cout << "\nNet " << r+1 <<": ";
-        for(int s=0; s<paths[r].size(); s++)
-        {
-           std::cout<< "( " <<paths[r][s].x << " , " <<paths[r][s].y <<" )";
-        }
-        std::cout<<std::endl;
-    }
-    
-	
-/*	
+        
+
+	//Print the paths/netlists that are returning from algorithm  
 	for (unsigned i = 0;i < paths.size();i++) {
-		cout << "\tPath " << i+1 << " of " << paths.size() << ": (" 
+		cout << "\tNet " << i+1 << " of " << paths.size() << ": (" 
 			 << paths.at(i)->at(0)->get_source().x << "," << paths.at(i)->at(0)->get_source().y << ") ";
 		for (unsigned j = 0;j < paths.at(i)->size();j++) {
 			cout << "(" << paths.at(i)->at(j)->get_sink().x << "," << paths.at(i)->at(j)->get_sink().y << ") ";
@@ -137,7 +130,7 @@ for(int r=0; r < paths.size() ; r++)
 		delete temp;
 	}
 	paths.clear();
-*/
+
 	delete first_problem;
 
 	return 0;
