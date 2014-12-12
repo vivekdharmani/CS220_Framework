@@ -10,7 +10,7 @@ Group Members:
 - Lees Algorihm (3-bit)
 - Lees Algorithm (2-bit)
 - Ruben's Cost Function (and 2 enhancements)
-- Korn's Cost Function (and 2 enhancements and user-given overpull)
+- Korn's Cost Function (with 2 enhancements and user-given overpull)
 - Hadlock's Algorithm (with enhancement to expand latest node discovered)
 
 
