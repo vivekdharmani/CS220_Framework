@@ -5,7 +5,7 @@ using Utilities::Point;
 
 void Utilities::PathSegment::update_length() {
     if(this->source.x == this->sink.x && this->source.y == this->sink.y) {
-        claim("You have entered two equal points, PathSegment length is zero", kWarning);
+       // claim("You have entered two equal points, PathSegment length is zero", kWarning);
         this->length = 0;
     }
     if(this->source.x == this->sink.x) {
